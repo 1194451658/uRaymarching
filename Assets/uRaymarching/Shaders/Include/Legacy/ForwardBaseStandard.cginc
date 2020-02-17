@@ -18,10 +18,16 @@ float _Metallic;
 
 #ifdef FULL_SCREEN
 
+// 全屏的，顶点输出
 struct VertOutput
 {
+    // Q: UNITY_POSITION
     UNITY_POSITION(pos);
+
+    // Q: 全屏怎么实现的？
+    //  * 直接把顶点，变换到相机/屏幕上
     float4 projPos : TEXCOORD0;
+
     float4 lmap : TEXCOORD1;
     UNITY_SHADOW_COORDS(2)
     UNITY_FOG_COORDS(3)
@@ -38,12 +44,16 @@ struct VertOutput
 
 #else
 
+// 非全屏的，顶点输出
 struct VertOutput
 {
     UNITY_POSITION(pos);
     float4 projPos : TEXCOORD0;
+
+    // 不是全屏时候，不一样的地方
     float3 worldNormal : TEXCOORD1;
     float3 worldPos : TEXCOORD2;
+
     float4 lmap : TEXCOORD3;
     UNITY_SHADOW_COORDS(4)
     UNITY_FOG_COORDS(5)
@@ -60,6 +70,8 @@ struct VertOutput
 
 #endif
 
+
+// frag输出
 struct FragOutput
 {
     float4 color : SV_Target;
